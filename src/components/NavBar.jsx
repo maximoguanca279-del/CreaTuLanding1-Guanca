@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { CartWidget } from './CartWidget';
 import './NavBar.css'; 
 
-export const NavBar = () => {
+export const NavBar = ({ totalItemsInCart }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Electrónica', href: '#' },
-    { name: 'Hogar', href: '#' },
-    { name: 'Ofertas', href: '#' },
+    { name: 'Electrónica', path: '/category/electronica' },
+    { name: 'Hogar', path: '/category/hogar' },
+    { name: 'Ofertas', path: '/category/ofertas' },
   ];
 
   return (
@@ -17,7 +18,7 @@ export const NavBar = () => {
       <div className="navbar-container">
           
         <div className="logo">
-          <a href="#">Mi Tienda</a>
+          <Link to="/">Mi Tienda</Link>
         </div>
 
         <button className="hamburger-button" onClick={() => setIsOpen(!isOpen)}>
@@ -32,14 +33,20 @@ export const NavBar = () => {
 
         <nav className="nav-links">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="nav-item">
+            <NavLink 
+              key={link.name} 
+              to={link.path} 
+              className={({ isActive }) => "nav-item" + (isActive ? " active-link" : "")}
+            >
               {link.name}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
         <div className="cart-container">
-          <CartWidget />
+          <Link to="/cart"> 
+            <CartWidget count={totalItemsInCart} />
+          </Link>
         </div>
 
       </div>
@@ -47,13 +54,20 @@ export const NavBar = () => {
       <div className={`mobile-menu ${isOpen ? 'is-open' : ''}`}>
           <nav className="mobile-nav-links">
               {navLinks.map((link) => (
-                <a key={`mobile-${link.name}`} href={link.href} className="mobile-nav-item" onClick={() => setIsOpen(false)}>
+                <Link 
+                  key={`mobile-${link.name}`} 
+                  to={link.path} 
+                  className="mobile-nav-item" 
+                  onClick={() => setIsOpen(false)}
+                >
                   {link.name}
-                </a>
+                </Link>
               ))}
           </nav>
           <div className="mobile-cart-container">
-              <CartWidget />
+              <Link to="/cart" onClick={() => setIsOpen(false)}>
+                <CartWidget count={totalItemsInCart} />
+              </Link>
           </div>
       </div>
       

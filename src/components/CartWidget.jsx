@@ -1,7 +1,7 @@
 import React from 'react';
 import './CartWidget.css'; 
 
-export const CartWidget = () => {
+export const CartWidget = ({ count }) => {
   return (
     <div className="cart-widget">
       
@@ -22,7 +22,7 @@ export const CartWidget = () => {
         <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
       
-      <span className="cart-count">3</span>
+      {count > 0 && <span className="cart-count">{count}</span>}
     </div>
   );
 };

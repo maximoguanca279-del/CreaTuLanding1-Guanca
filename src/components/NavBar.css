@@ -55,6 +55,13 @@
     border-bottom: 1px solid #FFD700;
 }
 
+/* ESTILO AÑADIDO: Para NavLink activo de React Router */
+.nav-item.active-link {
+    color: #FFD700; 
+    border-bottom: 2px solid #FFD700;
+}
+/* FIN ESTILO AÑADIDO */
+
 .cart-container {
     z-index: 10;
 }
